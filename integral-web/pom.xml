@@ -54,7 +54,7 @@
             <plugin>
                 <groupId>com.lenovo</groupId>
                 <artifactId>maven-kubernetes-plugin</artifactId>
-                <version>0.0.2-SNAPSHOT</version>
+                <version>0.0.1-SNAPSHOT</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
