@@ -48,7 +48,47 @@
                     </connectors>
                 </configuration>
             </plugin>
+
+
+            <!-- Kubernetes 插件用于生成 k8s 的 deployment, service, ingress, hpa 配置 -->
+            <plugin>
+                <groupId>com.lenovo</groupId>
+                <artifactId>maven-kubernetes-plugin</artifactId>
+                <version>0.0.2-SNAPSHOT</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Docker 插件用于生成 Docker 镜像并发布到镜像仓库，插件执行顺序有影响，放到plugins的末尾 -->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.4.11</version>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <dockerDirectory>${project.basedir}</dockerDirectory>
+                    <pushImage>true</pushImage>
+                    <imageName>
+                        dockerhub.lefile.cn/${project.docker.group}/${project.docker.application}-${project.docker.role}:${project.version}
+                    </imageName>
+                </configuration>
+            </plugin>
         </plugins>
+
+
     </build>
 
     <dependencies>
