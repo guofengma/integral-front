@@ -7,4 +7,5 @@
         http://code.alibabatech.com/schema/dubbo
         http://code.alibabatech.com/schema/dubbo/dubbo.xsd
         ">
-	<dubbo:application name="integral-front" owner="integral-front" organization="lenovo"/></beans>
+	<dubbo:application name="integral-front" owner="integral-front" organization="lenovo"/>
+</beans>

@@ -14,9 +14,6 @@
 
     <dubbo:protocol port="-1"/>
 
-    <!--设置超时时间-->
-    <!--<dubbo:consumer timeout="30000"></dubbo:consumer>-->
-
     <!-- soa服务 -->
     <dubbo:reference id="couponAndIntegralInfoService" interface="com.lenovo.m2.integral.soa.api.CouponAndIntegralInfoService" timeout="100000" check="false"/>
     <dubbo:reference id="exchangeCouponRecordService" interface="com.lenovo.m2.integral.soa.api.ExchangeCouponRecordService" timeout="100000" check="false"/>
