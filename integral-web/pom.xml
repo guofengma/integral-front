@@ -49,12 +49,36 @@
                 </configuration>
             </plugin>
 
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>native2ascii-maven-plugin</artifactId>
+                <version>1.0-alpha-1</version>
+                <configuration>
+                    <dest>target/resources</dest>
+                    <src>src/main/resources</src>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>native2ascii-utf8</id>
+                        <goals>
+                            <goal>native2ascii</goal>
+                        </goals>
+                        <configuration>
+                            <encoding>UTF8</encoding>
+                            <includes>ApplicationResources_*.properties</includes>
+                            <excludes>ApplicationResources.properties
+                            </excludes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
 
             <!-- Kubernetes 插件用于生成 k8s 的 deployment, service, ingress, hpa 配置 -->
             <plugin>
                 <groupId>com.lenovo</groupId>
                 <artifactId>maven-kubernetes-plugin</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>0.0.2-SNAPSHOT</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
