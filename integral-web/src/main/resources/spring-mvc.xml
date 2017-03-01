@@ -31,6 +31,17 @@
               </property>
        </bean>
 
+    <!-- 通过注解驱动代替配置处理器映射器、处理器适配器。好处：可以加载自定义的类型转换器、校验器、json解析器 -->
+    <!--<mvc:annotation-driven conversion-service="conversionService"/>
+    &lt;!&ndash; 配置自定义类型转换器 &ndash;&gt;
+    <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean class="com.lenovo.m2.integral.front.utils.CouponAndIntegralInfoConverter"/>
+                <bean class="com.lenovo.m2.integral.front.utils.MoneyParamsConverter"/>
+            </set>
+        </property>
+    </bean>-->
 
        <!-- 定义跳转的文件的前后缀 ，视图模式配置 -->
        <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
