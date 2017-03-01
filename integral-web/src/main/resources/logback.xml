@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Reference Manual http://logback.qos.ch/manual/index.html -->
+<configuration>
+    <property name="log.path" value="/data/logs/dubbo" />
+
+    <!--<configuration scan="true" scanPeriod="60 seconds" debug="false"/>-->
+
+    <appender name="STDOUT" class="ch.qos.logback.core.FileAppender">
+        <file>${log.path}/integral-front.log</file>
+        <encoder>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss} %-5p] projectName : integral-front %X{elk_leId} %X{elk_lenovoId} %X{elk_requestId} %X{ip} [%thread] %-5level %logger{5} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <logger name="org.springframework" level="WARN" additivity="false"/>
+    <logger name="org.apache.commons.beanutils" level="WARN" additivity="false"/>
+    <logger name="org.apache.http" level="WARN" additivity="false"/>
+    <logger name="org.apache.velocity" level="WARN" additivity="false"/>
+    <logger name="com.lenovo.m2.arch.framework" level="WARN" additivity="false"/>
+    <logger name="com.lenovo.admin.extra.client" level="DEBUG" additivity="false"/>
+    <logger name="ch.qos.logback" level="DEBUG" additivity="false"/>
+
+    <root level="debug">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>

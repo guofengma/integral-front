@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+        ">
+
+    <!--  dubb配置注册信息分割线  -->
+    <dubbo:application name="${dubbo.application.name}"/>
+    <dubbo:registry address="${dubbo.registry.address}" protocol="${dubbo.registry.protocol}" group="${dubbo.registry.group}"/>
+
+    <dubbo:protocol port="-1"/>
+
+    <!--设置超时时间-->
+    <!--<dubbo:consumer timeout="30000"></dubbo:consumer>-->
+
+    <!-- soa服务 -->
+    <dubbo:reference id="couponAndIntegralInfoService" interface="com.lenovo.m2.integral.soa.api.CouponAndIntegralInfoService" timeout="100000" check="false"/>
+    <dubbo:reference id="exchangeCouponRecordService" interface="com.lenovo.m2.integral.soa.api.ExchangeCouponRecordService" timeout="100000" check="false"/>
+
+
+
+</beans>

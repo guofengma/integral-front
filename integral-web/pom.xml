@@ -1,0 +1,69 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>integral-front</artifactId>
+        <groupId>com.lenovo.m2.integral.front</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>integral-web</artifactId>
+    <packaging>jar</packaging>
+
+    <name>integral-web</name>
+    <url>http://maven.apache.org</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Docker & Kubernetes & Jenkins 插件配置 -->
+        <project.docker.canDeploy>true</project.docker.canDeploy>
+        <project.docker.deployType>canary</project.docker.deployType>     <!-- canary部署模式，支持先部署一部分，待其他项目完成部署再继续剩余pod的部署，期间新老版本将同时运行 -->
+        <project.docker.role>web</project.docker.role>                            <!-- 建议dubbo应用设为 svc, 减少最终 pod 名字的长度 -->
+        <project.docker.author>shaoyh2</project.docker.author>
+        <project.docker.useIngress>true</project.docker.useIngress>     <!-- web 应用需要这个配置，dubbo 应用去掉这个配置 -->
+        <project.docker.minReplicas>2</project.docker.minReplicas>
+        <project.docker.maxReplicas>10</project.docker.maxReplicas>
+        <project.docker.cpu>500m</project.docker.cpu>
+        <project.docker.memory>1Gi</project.docker.memory>
+        <project.docker.jvmOpts>-Xmx1g -Xms1g -Xmn512m -Xss1m -XX:PermSize=512m -XX:MaxPermSize=512m</project.docker.jvmOpts>
+        <project.docker.readinessCheckUrl>/index.jsp</project.docker.readinessCheckUrl>  <!-- web 应用需要这个配置，dubbo 应用去掉这个配置, 地址需要改为应用内可以访问到的url，k8s 会定期访问这个url，根据这个判断应用是否可用 -->
+
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>maven-jetty-plugin</artifactId>
+                <version>6.1.26</version>
+                <configuration>
+                    <contextPath>/</contextPath>
+                    <scanIntervalSeconds>3</scanIntervalSeconds>
+                    <connectors>
+                        <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+                            <port>80</port>
+                            <maxIdleTime>60000</maxIdleTime>
+                        </connector>
+                    </connectors>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.lenovo.m2.integral.front</groupId>
+            <artifactId>integral-service</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>
