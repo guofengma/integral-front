@@ -8,9 +8,9 @@ import java.math.BigDecimal;
 /**
  * Created by admin on 2017/3/1.
  */
-public class MoneyParamsConverter implements Converter<Double,Money> {
+public class MoneyParamsConverter implements Converter<Integer,Money> {
     @Override
-    public Money convert(Double source) {
+    public Money convert(Integer source) {
         try {
             BigDecimal decimal = new BigDecimal(source);
             Money money = new Money();

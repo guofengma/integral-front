@@ -32,7 +32,7 @@
         <property name="locations">
             <list>
                 <value>classpath:integral-front-dubbo.properties</value>
-                <value>classpath:logback.xml</value>
+                <!--<value>classpath:logback.xml</value>-->
                 <!--<value>classpath:integral-datasource.properties</value>
                 <value>classpath:integral-dubbo.properties</value>
                 <value>classpath:integral-kafka.properties</value>
