@@ -91,7 +91,6 @@ public class CouponAndIntegralController {
     @ResponseBody
     public RemoteResult getCouponInfoByPage(PageQuery pageQuery, CouponAndIntegralInfo couponAndIntegralInfo,HttpServletRequest request,HttpServletResponse response){
         LOGGER.info("getCouponInfoByPage Start:"+JacksonUtil.toJson(pageQuery)+";"+JacksonUtil.toJson(couponAndIntegralInfo)+";"+JacksonUtil.toJson(request));
-        response.setCharacterEncoding("utf-8");
 
         RemoteResult<PageModel2<CouponAndIntegralInfo>> remoteResult = new RemoteResult<PageModel2<CouponAndIntegralInfo>>();
         try {
