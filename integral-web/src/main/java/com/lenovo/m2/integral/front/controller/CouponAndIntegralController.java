@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -88,8 +89,9 @@ public class CouponAndIntegralController {
     //查询优惠券和积分绑定记录加分页
     @RequestMapping("/getCouponInfoByPage")
     @ResponseBody
-    public RemoteResult getCouponInfoByPage(PageQuery pageQuery, CouponAndIntegralInfo couponAndIntegralInfo,HttpServletRequest request){
+    public RemoteResult getCouponInfoByPage(PageQuery pageQuery, CouponAndIntegralInfo couponAndIntegralInfo,HttpServletRequest request,HttpServletResponse response){
         LOGGER.info("getCouponInfoByPage Start:"+JacksonUtil.toJson(pageQuery)+";"+JacksonUtil.toJson(couponAndIntegralInfo)+";"+JacksonUtil.toJson(request));
+        response.setCharacterEncoding("utf-8");
 
         RemoteResult<PageModel2<CouponAndIntegralInfo>> remoteResult = new RemoteResult<PageModel2<CouponAndIntegralInfo>>();
         try {
