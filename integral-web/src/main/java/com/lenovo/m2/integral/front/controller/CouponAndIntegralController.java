@@ -37,8 +37,8 @@ public class CouponAndIntegralController {
     //新建优惠券和积分绑定记录
     @RequestMapping("/addCouponInfo")
     @ResponseBody
-    public RemoteResult addIntegralBindingCoupon(String couponId,String memberId,Integer integralNum,Integer state){
-        LOGGER.info("addIntegralBindingCoupon Start:"+couponId+";"+memberId+";"+integralNum+";"+state);
+    public RemoteResult addCouponInfo(String couponId,String memberId,Integer integralNum,Integer state){
+        LOGGER.info("addCouponInfo Start:"+couponId+";"+memberId+";"+integralNum+";"+state);
 
         RemoteResult remoteResult = new RemoteResult();
 
@@ -46,7 +46,7 @@ public class CouponAndIntegralController {
             if (couponId==null || memberId==null || integralNum==null || state==null){
                 remoteResult.setResultCode(ResultCode.PARAMS_FAIL);
                 remoteResult.setResultMsg("参数不正确！");
-                LOGGER.info("addIntegralBindingCoupon End:" + JacksonUtil.toJson(remoteResult));
+                LOGGER.info("addCouponInfo End:" + JacksonUtil.toJson(remoteResult));
                 return remoteResult;
             }
 
@@ -56,7 +56,7 @@ public class CouponAndIntegralController {
             remoteResult.setResultCode(ResultCode.FAIL);
             LOGGER.error(e.getMessage(),e);
         }
-        LOGGER.info("addIntegralBindingCoupon End:"+ JacksonUtil.toJson(remoteResult));
+        LOGGER.info("addCouponInfo End:"+ JacksonUtil.toJson(remoteResult));
         return remoteResult;
     }
 
@@ -89,7 +89,7 @@ public class CouponAndIntegralController {
     @RequestMapping("/getCouponInfoByPage")
     @ResponseBody
     public RemoteResult getCouponInfoByPage(PageQuery pageQuery, CouponAndIntegralInfo couponAndIntegralInfo,HttpServletRequest request){
-        LOGGER.info("getCouponInfoByPage Start:"+JacksonUtil.toJson(pageQuery)+";"+JacksonUtil.toJson(couponAndIntegralInfo)+";"+JacksonUtil.toJson(request));
+        LOGGER.info("getCouponInfoByPage Start:" + JacksonUtil.toJson(pageQuery) + ";" + JacksonUtil.toJson(couponAndIntegralInfo) + ";" + JacksonUtil.toJson(request));
 
         RemoteResult<PageModel2<CouponAndIntegralInfo>> remoteResult = new RemoteResult<PageModel2<CouponAndIntegralInfo>>();
         try {
