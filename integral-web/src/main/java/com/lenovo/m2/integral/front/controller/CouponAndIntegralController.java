@@ -118,12 +118,12 @@ public class CouponAndIntegralController {
             String gainstarttime = request.getParameter("gainstarttime");
             if (gainstarttime!=null){
                 Date parse = sdf.parse(gainstarttime);
-                couponAndIntegralInfo.setTotime(parse);
+                couponAndIntegralInfo.setGetstarttime(parse);
             }
             String gainendtime = request.getParameter("gainendtime");
             if (gainendtime!=null){
                 Date parse = sdf.parse(gainendtime);
-                couponAndIntegralInfo.setTotime(parse);
+                couponAndIntegralInfo.setGetendtime(parse);
             }
         }catch (Exception e){
             remoteResult.setResultCode(ResultCode.PARAMS_FAIL);
