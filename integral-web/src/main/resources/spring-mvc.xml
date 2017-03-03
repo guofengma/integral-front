@@ -12,47 +12,19 @@
 
 
 
-       <!-- 自动扫描  @Controller-->
-       <context:component-scan base-package="com.lenovo.m2.integral.front.controller"/>
+        <!-- 自动扫描  @Controller-->
+        <context:component-scan base-package="com.lenovo.m2.integral.front.controller"/>
 
-       <!--避免IE执行AJAX时，返回JSON出现下载文件 -->
-       <!--<bean id="mappingJacksonHttpMessageConverter"
-             class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-              <property name="supportedMediaTypes">
-                     <list>
-                            <value>text/html;charset=UTF-8</value>
-                     </list>
-              </property>
-       </bean>-->
-       <!-- 启动SpringMVC的注解功能，完成请求和注解POJO的映射 -->
-       <!--<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-              <property name="messageConverters">
-                     <list>
-                            <ref bean="mappingJacksonHttpMessageConverter"/> &lt;!&ndash; JSON转换器 &ndash;&gt;
-                     </list>
-              </property>
-       </bean>-->
+        <!-- 通过注解驱动代替配置处理器映射器、处理器适配器。好处：可以加载自定义的类型转换器、校验器、json解析器 -->
+        <mvc:annotation-driven/>
 
-    <!-- 通过注解驱动代替配置处理器映射器、处理器适配器。好处：可以加载自定义的类型转换器、校验器、json解析器 -->
-    <mvc:annotation-driven/>
-    <!-- 配置自定义类型转换器 -->
-    <!--<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
-        <property name="converters">
-            <set>
-                <bean class="com.lenovo.m2.integral.front.utils.CouponAndIntegralInfoConverter"/>
-                <bean class="com.lenovo.m2.integral.front.utils.MoneyParamsConverter"/>
-            </set>
-        </property>
-    </bean>-->
-
-       <!-- 定义跳转的文件的前后缀 ，视图模式配置 -->
-       <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!-- 定义跳转的文件的前后缀 ，视图模式配置 -->
+        <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
               <property name="prefix" value="/WEB-INF/jsp/" />
               <property name="suffix" value=".jsp"/>
-       </bean>
+        </bean>
 
-       <import resource="integralfront-remote-consumer.xml"/>
-       <import resource="applicationContext-propertiesResource.xml"/>
+        <import resource="integralfront-remote-consumer.xml"/>
+        <import resource="applicationContext-propertiesResource.xml"/>
 
-       <!--<bean id="itemBindingCouponService" class="com.lenovo.m2.integral.soa.api.ItemBindingCouponService"></bean>-->
 </beans>
