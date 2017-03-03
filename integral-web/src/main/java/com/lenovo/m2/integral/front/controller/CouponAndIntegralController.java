@@ -89,7 +89,7 @@ public class CouponAndIntegralController {
     @RequestMapping("/getCouponInfoByPage")
     @ResponseBody
     public RemoteResult getCouponInfoByPage(PageQuery pageQuery, CouponAndIntegralInfo couponAndIntegralInfo,HttpServletRequest request){
-        LOGGER.info("getCouponInfoByPage Start:" + JacksonUtil.toJson(pageQuery) + ";" + JacksonUtil.toJson(couponAndIntegralInfo));
+        LOGGER.info("getCouponInfoByPage Start:" + JacksonUtil.toJson(pageQuery) + ";" + JacksonUtil.toJson(couponAndIntegralInfo)+";"+JacksonUtil.toJson(request.getParameterMap()));
 
         RemoteResult<PageModel2<CouponAndIntegralInfo>> remoteResult = new RemoteResult<PageModel2<CouponAndIntegralInfo>>();
         try {
