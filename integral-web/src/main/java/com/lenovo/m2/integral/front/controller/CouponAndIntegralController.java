@@ -37,20 +37,20 @@ public class CouponAndIntegralController {
     //新建优惠券和积分绑定记录
     @RequestMapping("/addCouponInfo")
     @ResponseBody
-    public RemoteResult addCouponInfo(String couponId,String memberId,Integer integralNum,Integer state){
-        LOGGER.info("addCouponInfo Start:"+couponId+";"+memberId+";"+integralNum+";"+state);
+    public RemoteResult addCouponInfo(String couponId,String agentId,String agentCode,Integer integralNum,Integer state){
+        LOGGER.info("addCouponInfo Start:"+couponId+";"+agentId+";"+agentCode+";"+integralNum+";"+state);
 
         RemoteResult remoteResult = new RemoteResult();
 
         try {
-            if (couponId==null || memberId==null || integralNum==null || state==null){
+            if (couponId==null || agentId==null || agentCode==null || integralNum==null || state==null){
                 remoteResult.setResultCode(ResultCode.PARAMS_FAIL);
                 remoteResult.setResultMsg("参数不正确！");
                 LOGGER.info("addCouponInfo End:" + JacksonUtil.toJson(remoteResult));
                 return remoteResult;
             }
 
-            remoteResult = couponAndIntegralInfoService.addCouponInfo(couponId, memberId, integralNum, state);
+            remoteResult = couponAndIntegralInfoService.addCouponInfo(couponId, agentId, agentCode, integralNum, state);
         }catch (Exception e){
             remoteResult.setResultMsg("系统异常");
             remoteResult.setResultCode(ResultCode.FAIL);
@@ -96,10 +96,6 @@ public class CouponAndIntegralController {
             //参数处理
             String money = request.getParameter("money");
             if (money!=null){
-                /*BigDecimal decimal = new BigDecimal(Integer.parseInt(money));
-                Money money1 = new Money();
-                money1.setAmount(decimal);
-                couponAndIntegralInfo.setCouponMoney(money1);*/
                 Money cny = new Money(Integer.parseInt(money), "CNY");
                 couponAndIntegralInfo.setCouponMoney(cny);
             }
@@ -154,19 +150,19 @@ public class CouponAndIntegralController {
     //修改绑定记录
     @RequestMapping("/updateCouponInfo")
     @ResponseBody
-    public RemoteResult updateCouponInfo(String couponId,String memberId, Integer integralNum, Integer state){
-        LOGGER.info("updateCouponInfo Start:"+couponId+";"+memberId+";"+integralNum+";"+state);
+    public RemoteResult updateCouponInfo(String couponId,String agentId,String agentCode, Integer integralNum, Integer state){
+        LOGGER.info("updateCouponInfo Start:"+couponId+";"+agentId+";"+agentCode+";"+integralNum+";"+state);
 
         RemoteResult remoteResult = new RemoteResult();
         try {
-            if (couponId==null || memberId==null || integralNum==null || state==null){
+            if (couponId==null || agentId==null || agentCode==null || integralNum==null || state==null){
                 remoteResult.setResultCode(ResultCode.PARAMS_FAIL);
                 remoteResult.setResultMsg("参数不正确");
                 LOGGER.info("updateCouponInfo End:"+ JacksonUtil.toJson(remoteResult));
                 return remoteResult;
             }
 
-            remoteResult = couponAndIntegralInfoService.updateCouponInfo(couponId, memberId, integralNum, state);
+            remoteResult = couponAndIntegralInfoService.updateCouponInfo(couponId, agentId, agentCode, integralNum, state);
         }catch (Exception e){
             remoteResult.setResultMsg("系统异常");
             remoteResult.setResultCode(ResultCode.FAIL);
