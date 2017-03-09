@@ -95,29 +95,29 @@ public class CouponAndIntegralController {
         try {
             //参数处理
             String money = request.getParameter("money");
-            if (money!=null){
+            if (money!=null && !"".equals(money)){
                 Money cny = new Money(Integer.parseInt(money), "CNY");
                 couponAndIntegralInfo.setCouponMoney(cny);
             }
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String fromtime = request.getParameter("usestarttime");
-            if (fromtime!=null){
+            if (fromtime!=null && !"".equals(fromtime)){
                 Date parse = sdf.parse(fromtime);
                 couponAndIntegralInfo.setFromtime(parse);
             }
             String totime = request.getParameter("useendtime");
-            if (totime!=null){
+            if (totime!=null && !"".equals(totime)){
                 Date parse = sdf.parse(totime);
                 couponAndIntegralInfo.setTotime(parse);
             }
             String gainstarttime = request.getParameter("gainstarttime");
-            if (gainstarttime!=null){
+            if (gainstarttime!=null && !"".equals(gainstarttime)){
                 Date parse = sdf.parse(gainstarttime);
                 couponAndIntegralInfo.setGetstarttime(parse);
             }
             String gainendtime = request.getParameter("gainendtime");
-            if (gainendtime!=null){
+            if (gainendtime!=null && !"".equals(gainendtime)){
                 Date parse = sdf.parse(gainendtime);
                 couponAndIntegralInfo.setGetendtime(parse);
             }
