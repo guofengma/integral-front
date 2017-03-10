@@ -43,7 +43,7 @@ public class CouponAndIntegralController {
         RemoteResult remoteResult = new RemoteResult();
 
         try {
-            if (couponId==null || agentId==null || agentCode==null || integralNum==null || state==null){
+            if (couponId==null || "".equals(couponId) || agentId==null || "".equals(agentId) || agentCode==null || "".equals(agentCode) || integralNum==null || "".equals(integralNum) || state==null || "".equals(state)){
                 remoteResult.setResultCode(ResultCode.PARAMS_FAIL);
                 remoteResult.setResultMsg("参数不正确！");
                 LOGGER.info("addCouponInfo End:" + JacksonUtil.toJson(remoteResult));
@@ -68,7 +68,7 @@ public class CouponAndIntegralController {
 
         RemoteResult<CouponAndIntegralInfo> remoteResult = new RemoteResult<CouponAndIntegralInfo>();
         try {
-            if (couponId==null){
+            if (couponId==null || "".equals(couponId)){
                 remoteResult.setResultCode(ResultCode.PARAMS_FAIL);
                 remoteResult.setResultMsg("参数不正确");
                 LOGGER.info("getCouponInfo End:" + JacksonUtil.toJson(remoteResult));
@@ -155,7 +155,7 @@ public class CouponAndIntegralController {
 
         RemoteResult remoteResult = new RemoteResult();
         try {
-            if (couponId==null || agentId==null || agentCode==null || integralNum==null || state==null){
+            if (couponId==null || "".equals(couponId) || agentId==null || "".equals(agentId) || agentCode==null || "".equals(agentCode) || integralNum==null || "".equals(integralNum) || state==null || "".equals(state)){
                 remoteResult.setResultCode(ResultCode.PARAMS_FAIL);
                 remoteResult.setResultMsg("参数不正确");
                 LOGGER.info("updateCouponInfo End:"+ JacksonUtil.toJson(remoteResult));
