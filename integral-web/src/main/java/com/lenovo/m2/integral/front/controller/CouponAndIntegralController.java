@@ -1,10 +1,12 @@
 package com.lenovo.m2.integral.front.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.lenovo.m2.arch.framework.domain.Money;
 import com.lenovo.m2.arch.framework.domain.PageModel2;
 import com.lenovo.m2.arch.framework.domain.PageQuery;
 import com.lenovo.m2.arch.framework.domain.RemoteResult;
 import com.lenovo.m2.integral.front.utils.ResultCode;
+import com.lenovo.m2.integral.front.utils.StringUtil;
 import com.lenovo.m2.integral.soa.api.CouponAndIntegralInfoService;
 import com.lenovo.m2.integral.soa.api.ExchangeCouponRecordService;
 import com.lenovo.m2.integral.soa.domain.CouponAndIntegralInfo;
@@ -37,20 +39,23 @@ public class CouponAndIntegralController {
     //新建优惠券和积分绑定记录
     @RequestMapping("/addCouponInfo")
     @ResponseBody
-    public RemoteResult addCouponInfo(String couponId,String agentId,String agentCode,Integer integralNum,Integer state){
-        LOGGER.info("addCouponInfo Start:"+couponId+";"+agentId+";"+agentCode+";"+integralNum+";"+state);
+    public RemoteResult addCouponInfo(String couponId,String authdata,Integer integralNum,Integer state){
+        LOGGER.info("addCouponInfo Start:"+couponId+";"+authdata+";"+integralNum+";"+state);
 
         RemoteResult remoteResult = new RemoteResult();
 
         try {
-            if (couponId==null || "".equals(couponId) || agentId==null || "".equals(agentId) || agentCode==null || "".equals(agentCode) || integralNum==null || "".equals(integralNum) || state==null || "".equals(state)){
+            if (StringUtil.isEmpty(couponId) || StringUtil.isEmpty(authdata) ||  integralNum==null || "".equals(integralNum) || state==null || "".equals(state)){
                 remoteResult.setResultCode(ResultCode.PARAMS_FAIL);
                 remoteResult.setResultMsg("参数不正确！");
                 LOGGER.info("addCouponInfo End:" + JacksonUtil.toJson(remoteResult));
                 return remoteResult;
             }
 
-            remoteResult = couponAndIntegralInfoService.addCouponInfo(couponId, agentId, agentCode, integralNum, state);
+            JSONObject jsonObject = JSONObject.parseObject(authdata);
+            String itcode = jsonObject.getString("userid");
+
+            remoteResult = couponAndIntegralInfoService.addCouponInfo(couponId, itcode, integralNum, state);
         }catch (Exception e){
             remoteResult.setResultMsg("系统异常");
             remoteResult.setResultCode(ResultCode.FAIL);
@@ -68,7 +73,7 @@ public class CouponAndIntegralController {
 
         RemoteResult<CouponAndIntegralInfo> remoteResult = new RemoteResult<CouponAndIntegralInfo>();
         try {
-            if (couponId==null || "".equals(couponId)){
+            if (StringUtil.isEmpty(couponId)){
                 remoteResult.setResultCode(ResultCode.PARAMS_FAIL);
                 remoteResult.setResultMsg("参数不正确");
                 LOGGER.info("getCouponInfo End:" + JacksonUtil.toJson(remoteResult));
@@ -95,29 +100,29 @@ public class CouponAndIntegralController {
         try {
             //参数处理
             String money = request.getParameter("money");
-            if (money!=null && !"".equals(money)){
+            if (StringUtil.isNotEmpty(money)){
                 Money cny = new Money(Integer.parseInt(money), "CNY");
                 couponAndIntegralInfo.setCouponMoney(cny);
             }
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String fromtime = request.getParameter("usestarttime");
-            if (fromtime!=null && !"".equals(fromtime)){
+            if (StringUtil.isNotEmpty(fromtime)){
                 Date parse = sdf.parse(fromtime);
                 couponAndIntegralInfo.setFromtime(parse);
             }
             String totime = request.getParameter("useendtime");
-            if (totime!=null && !"".equals(totime)){
+            if (StringUtil.isNotEmpty(totime)){
                 Date parse = sdf.parse(totime);
                 couponAndIntegralInfo.setTotime(parse);
             }
             String gainstarttime = request.getParameter("gainstarttime");
-            if (gainstarttime!=null && !"".equals(gainstarttime)){
+            if (StringUtil.isNotEmpty(gainstarttime)){
                 Date parse = sdf.parse(gainstarttime);
                 couponAndIntegralInfo.setGetstarttime(parse);
             }
             String gainendtime = request.getParameter("gainendtime");
-            if (gainendtime!=null && !"".equals(gainendtime)){
+            if (StringUtil.isNotEmpty(gainendtime)){
                 Date parse = sdf.parse(gainendtime);
                 couponAndIntegralInfo.setGetendtime(parse);
             }
@@ -150,19 +155,22 @@ public class CouponAndIntegralController {
     //修改绑定记录
     @RequestMapping("/updateCouponInfo")
     @ResponseBody
-    public RemoteResult updateCouponInfo(String couponId,String agentId,String agentCode, Integer integralNum, Integer state){
-        LOGGER.info("updateCouponInfo Start:"+couponId+";"+agentId+";"+agentCode+";"+integralNum+";"+state);
+    public RemoteResult updateCouponInfo(String couponId,String authdata, Integer integralNum, Integer state){
+        LOGGER.info("updateCouponInfo Start:"+couponId+";"+authdata+";"+integralNum+";"+state);
 
         RemoteResult remoteResult = new RemoteResult();
         try {
-            if (couponId==null || "".equals(couponId) || agentId==null || "".equals(agentId) || agentCode==null || "".equals(agentCode) || integralNum==null || "".equals(integralNum) || state==null || "".equals(state)){
+            if (StringUtil.isEmpty(couponId) || StringUtil.isEmpty(authdata) || integralNum==null || "".equals(integralNum) || state==null || "".equals(state)){
                 remoteResult.setResultCode(ResultCode.PARAMS_FAIL);
                 remoteResult.setResultMsg("参数不正确");
                 LOGGER.info("updateCouponInfo End:"+ JacksonUtil.toJson(remoteResult));
                 return remoteResult;
             }
 
-            remoteResult = couponAndIntegralInfoService.updateCouponInfo(couponId, agentId, agentCode, integralNum, state);
+            JSONObject jsonObject = JSONObject.parseObject(authdata);
+            String itcode = jsonObject.getString("userid");
+
+            remoteResult = couponAndIntegralInfoService.updateCouponInfo(couponId, itcode, integralNum, state);
         }catch (Exception e){
             remoteResult.setResultMsg("系统异常");
             remoteResult.setResultCode(ResultCode.FAIL);
