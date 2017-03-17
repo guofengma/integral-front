@@ -52,8 +52,17 @@ public class CouponAndIntegralController {
                 return remoteResult;
             }
 
-            JSONObject jsonObject = JSONObject.parseObject(authdata);
-            String itcode = jsonObject.getString("userid");
+            String itcode = null;
+            try {
+                JSONObject jsonObject = JSONObject.parseObject(authdata);
+                itcode = jsonObject.getString("userid");
+            }catch (Exception e){
+                remoteResult.setResultCode(ResultCode.PARAMS_FAIL);
+                remoteResult.setResultMsg("参数不正确！");
+                LOGGER.error(e.getMessage(),e);
+                LOGGER.info("addCouponInfo End:" + JacksonUtil.toJson(remoteResult));
+                return remoteResult;
+            }
 
             remoteResult = couponAndIntegralInfoService.addCouponInfo(couponId, itcode, integralNum, state);
         }catch (Exception e){
@@ -167,8 +176,17 @@ public class CouponAndIntegralController {
                 return remoteResult;
             }
 
-            JSONObject jsonObject = JSONObject.parseObject(authdata);
-            String itcode = jsonObject.getString("userid");
+            String itcode = null;
+            try {
+                JSONObject jsonObject = JSONObject.parseObject(authdata);
+                itcode = jsonObject.getString("userid");
+            }catch (Exception e){
+                remoteResult.setResultCode(ResultCode.PARAMS_FAIL);
+                remoteResult.setResultMsg("参数不正确！");
+                LOGGER.error(e.getMessage(),e);
+                LOGGER.info("updateCouponInfo End:" + JacksonUtil.toJson(remoteResult));
+                return remoteResult;
+            }
 
             remoteResult = couponAndIntegralInfoService.updateCouponInfo(couponId, itcode, integralNum, state);
         }catch (Exception e){

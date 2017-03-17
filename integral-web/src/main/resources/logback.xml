@@ -21,7 +21,7 @@
     <logger name="com.lenovo.admin.extra.client" level="DEBUG" additivity="false"/>
     <logger name="ch.qos.logback" level="DEBUG" additivity="false"/>
 
-    <root level="debug">
+    <root level="info">
         <appender-ref ref="STDOUT" />
     </root>
 </configuration>
